@@ -174,6 +174,7 @@ while True:
     run_bot(reddit, comments_replied_to)
 
 
+#This code is mainly based on yashar1/reddit-comment-bot but with huge improvements
 #I am not a professional coder and this code is definetly not perfect but it gets the job done.
 
 # "Bilim, gerçeği bilmektir." -M.Kemal Atatürk
