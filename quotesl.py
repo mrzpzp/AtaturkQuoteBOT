@@ -1,0 +1,1 @@
+quotes = ["This is where the quotes will go"]

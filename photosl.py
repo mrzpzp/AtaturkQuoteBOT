@@ -1,0 +1,1 @@
+photos = ["This is where the photo links will go"]
