@@ -1,4 +1,4 @@
-# AtaturkQuoteBot v3.0 by MrZpzp
+# AtaturkQuoteBot v3.4 by MrZpzp
 
 import praw
 import quotesl
@@ -6,8 +6,6 @@ import photosl
 import time
 import os
 import random
-
-
 
 
 def bot_login():
@@ -22,14 +20,42 @@ def bot_login():
     return reddit
 
 def run_bot(reddit, comments_replied_to):
-    subreddit = reddit.subreddit('Ata+Turkey+TurkeyJerky+KGBTR+ArsivUnutmaz')
+    subreddit = reddit.subreddit('Ata')  # This is where the subreddit names will go.
+    
 
+    print("Collecting mentions,last 30 comments and last 7 posts from new")
 
-    print("Collecting last 150 comments and top 7 post from hot ")
+    choose_from = random.choice([quotesl.quotes , photosl.photos, quotesl.quotes])
 
-    choose_from = random.choice([quotesl.quotes , photosl.photos, quotesl.quotes , quotesl.quotes])
+    yes_or_no = random.randint(0,2)
+    
 
-    for submission in subreddit.hot(limit=7):
+    for mention in reddit.inbox.mentions(limit = 10):
+  
+        if  mention.id not in comments_replied_to and mention.author != reddit.user.me(
+        ):
+            print("mention found in mention " +
+                  mention.id)
+            random_index = random.randint(0, len(quotesl.quotes) - 1)
+            random_index2 = random.randint(0, len(photosl.photos) - 1)
+            
+            if choose_from == quotesl.quotes:
+              mention.reply(choose_from[random_index] + " \n\n "
+                                                  "*-M.Kemal Atatürk* \n\n "
+                                                   "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/mentions/pcp0q0/ataturkquotebot_says_hellooo/)")
+           
+
+            print("Replied to mention " + mention.id)
+
+            comments_replied_to.append(mention.id)
+
+            with open("comments_replied_to.txt", "a") as f:
+                f.write(mention.id + "\n")
+    
+    
+    
+    
+    for submission in subreddit.new(limit=7):
         submission_lower = submission.title.lower()
 
         submission.id = "t3_" + submission.id
@@ -43,43 +69,14 @@ def run_bot(reddit, comments_replied_to):
             if choose_from == quotesl.quotes:
               submission.reply(choose_from[random_index] + " \n\n "
                                                   "*-M.Kemal Atatürk* \n\n "
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-            )
+                                                   "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)")
+            
             elif choose_from == photosl.photos:
               submission.reply(choose_from[random_index2] + " \n\n "
                                                   
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
+                                                  "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)")
 
-            )
-
-            print("Replied to post " + submission.id)
-
-            comments_replied_to.append(submission.id)
-
-
-
-            with open("comments_replied_to.txt", "a") as f:
-                f.write(submission.id + "\n")
-
-
-        elif "mustafa kemal" in submission_lower and submission.id not in comments_replied_to and submission.author != reddit.user.me(
-        ):
-            print("Post with \"related words\" found in post " +
-                  submission.id)
-            random_index = random.randint(0, len(quotesl.quotes) - 1)
-            random_index2 = random.randint(0, len(photosl.photos) - 1)
-
-            if choose_from == quotesl.quotes:
-              submission.reply(choose_from[random_index] + " \n\n "
-                                                  "*-M.Kemal Atatürk* \n\n "
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-            )
-            elif choose_from == photosl.photos:
-              submission.reply(choose_from[random_index2] + " \n\n "
-                                                  
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-
-            )
+            
 
             print("Replied to post " + submission.id)
 
@@ -87,73 +84,45 @@ def run_bot(reddit, comments_replied_to):
 
             with open("comments_replied_to.txt", "a") as f:
                 f.write(submission.id + "\n")
+          
+
+    for comment in subreddit.comments(limit=50):
         
+        if yes_or_no == 1:
+            comment_lower = comment.body.lower()
+            if "atatürk " in comment_lower and comment.link_id not in comments_replied_to  and comment.author != reddit.user.me(
+              ):
+                
+                print("Comment with \"related words\" found in comment " +
+                      comment.id)
+                random_index = random.randint(0, len(quotesl.quotes) - 1)
+                random_index2 = random.randint(0, len(photosl.photos) - 1)
+                
+                if choose_from == quotesl.quotes:
+                    comment.reply(choose_from[random_index] + " \n\n "
+                                                      "*-M.Kemal Atatürk* \n\n "
+                                                      "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)")
+                
+                elif choose_from == photosl.photos:
+                    comment.reply(choose_from[random_index2] + " \n\n "
+                                                      
+                                                      "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)")
 
+                
 
-    for comment in subreddit.comments(limit=150):
+                print("Replied to comment " + comment.id)
 
-        comment_lower = comment.body.lower()
-        if "atatürk" in comment_lower and comment.link_id not in comments_replied_to and comment.author != reddit.user.me(
-        ):
-            print("Comment with \"related words\" found in comment " +
-                  comment.link_id)
-            random_index = random.randint(0, len(quotesl.quotes) - 1)
-            random_index2 = random.randint(0, len(photosl.photos) - 1)
+                comments_replied_to.append(comment.link_id)
 
-            if choose_from == quotesl.quotes:
-              comment.reply(choose_from[random_index] + " \n\n "
-                                                  "*-M.Kemal Atatürk* \n\n "
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-            )
-            elif choose_from == photosl.photos:
-              comment.reply(choose_from[random_index2] + " \n\n "
-                                                  
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-
-            )
-            
-            print("Replied to comment " + comment.link_id)
-
-            comments_replied_to.append(comment.link_id)
-
-
-
-            with open("comments_replied_to.txt", "a") as f:
-                f.write(comment.link_id + "\n")
-
-
-        elif "mustafa kemal" in comment_lower and comment.link_id not in comments_replied_to and comment.author != reddit.user.me(
-        ):
-            print("String with \"related words\" found in comment " +
-                  comment.link_id)
-            random_index = random.randint(0, len(quotesl.quotes) - 1)
-            random_index2 = random.randint(0, len(photosl.photos) - 1)
-
-            if choose_from == quotesl.quotes:
-              comment.reply(choose_from[random_index] + " \n\n "
-                                                  "*-M.Kemal Atatürk* \n\n "
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-            )
-            elif choose_from == photosl.photos:
-              comment.reply(choose_from[random_index2] + " \n\n "
-                                                  
-                                                  "^(I am a bot and this action was performed automatically.Please contact u/mrzpzp for complaints and questions.)"
-
-            
-            )
-            print("Replied to comment " + comment.link_id)
-
-            comments_replied_to.append(comment.link_id)
-
-            with open("comments_replied_to.txt", "a") as f:
-                f.write(comment.link_id + "\n")
-
-    
-        
+                with open("comments_replied_to.txt", "a") as f:
+                    f.write(comment.link_id + "\n")
+        else:
+          continue    
+          
     print("Collect Completed.")
 
-    print("Sleeping for 180 seconds...")
-    time.sleep(180)
+    print("Sleeping for 240 seconds...")
+    time.sleep(240)
 
 
 def get_saved_comments():
@@ -174,7 +143,6 @@ while True:
     run_bot(reddit, comments_replied_to)
 
 
-#This code is mainly based on yashar1/reddit-comment-bot but with huge improvements
 #I am not a professional coder and this code is definetly not perfect but it gets the job done.
 
 # "Bilim, gerçeği bilmektir." -M.Kemal Atatürk
