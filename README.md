@@ -4,5 +4,7 @@
 
 A simple Reddit bot that quotes M.Kemal Ataturk when mentioned.
 
+![DAHA FAZLA BİLGİ İÇİN TIKLA](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)
+
 “Peace at Home, Peace in the World"
 -M.Kemal Atatürk
