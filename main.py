@@ -9,12 +9,12 @@ import random
 
 
 def bot_login():
-    print("Logging in...")
-    reddit = praw.Reddit(client_id=os.environ['client_id'],
-                    client_secret=os.environ['client_secret'],
-                    user_agent=os.environ['user_agent'],
-                    username=os.environ['username'],
-                    password=os.environ['password'])
+    print("Logging in...")  # Don't forget to fill this area
+    reddit = praw.Reddit(client_id='client_id',   
+                    client_secret='client_secret',
+                    user_agent='user_agent',
+                    username='username',
+                    password='password')
     print("Logged in!")
 
     return reddit
