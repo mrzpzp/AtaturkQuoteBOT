@@ -16,7 +16,7 @@ def login():
     reddit = praw.Reddit(client_id="my client id",
                          client_secret="my client secret",
                          user_agent="my user agent",
-                         username="sername",
+                         username="username",
                          password="password",
                         )
     print("Logged in!")
