@@ -104,8 +104,8 @@ replied_to = get_saved_comments()
 while True:
   try:
     main(reddit, replied_to)
-  except:
-    print("An error occured,sleeping 120 seconds...")
+  except Exception as e:
+    print(e + " ,sleeping 120 seconds...")
     time.sleep(120)
     main(reddit, replied_to)
 
