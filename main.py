@@ -6,18 +6,20 @@ import photosl
 import time
 import os
 import random
+from keep_alive import keep_alive
 
-def bot_login():
-    print("Logging in...")  # Don't forget to fill this area
-    reddit = praw.Reddit(client_id='client_id',   
-                    client_secret='client_secret',
-                    user_agent='user_agent',
-                    username='username',
-                    password='password')
+keep_alive()
+
+def login():
+    print("Logging in...")
+    reddit = praw.Reddit(client_id=os.environ['client_id'],
+                    client_secret=os.environ['client_secret'],
+                    user_agent=os.environ['user_agent'],
+                    username=os.environ['username'],
+                    password=os.environ['password'])
     print("Logged in!")
 
     return reddit
-
 
 def get_saved_comments():
     if not os.path.isfile("replied_to.txt"):
@@ -46,7 +48,7 @@ def reply(p_type):
   else:
     random_index2 = random.randint(0, len(photosl.photos) - 1)
 
-    p_type.reply("Merhaba ben bir botum ve paylaşımında 'Atatürk'geçtiği için geldim.Senin için bir tane" + choose_from[random_index2] + "paylaştım. "+ " \n\n "
+    p_type.reply("Merhaba ben bir botum ve paylaşımında 'Atatürk'geçtiği için geldim.Senin için bir tane " + choose_from[random_index2] + " paylaştım. "+ " \n\n "
                                                     
                                     "^(I am a bot and this action was performed automatically.)" + "\n\n" + "[INFO|BİLGİ](https://www.reddit.com/user/mkemalataturk/comments/pcp0q0/ataturkquotebot_says_hellooo/)")
             
@@ -60,8 +62,8 @@ def reply(p_type):
       
 
 def main(reddit, replied_to):
-  subreddit = reddit.subreddit('Ata')  # This is where the subreddit names will go.
-    
+
+  subreddit = reddit.subreddit('Ata+Turkey+TurkeyJerky+KGBTR+ArsivUnutmaz+AteistTurk+BLKGM+Turkmenistan+Otuken')
       
   print("Collecting  last 3 mentions,last 50 comments and last 10 posts from new...")
 
