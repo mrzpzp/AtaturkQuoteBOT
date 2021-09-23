@@ -12,11 +12,13 @@ keep_alive()
 
 def login():
     print("Logging in...")
-    reddit = praw.Reddit(client_id=os.environ['client_id'],
-                    client_secret=os.environ['client_secret'],
-                    user_agent=os.environ['user_agent'],
-                    username=os.environ['username'],
-                    password=os.environ['password'])
+    #Fill here
+    reddit = praw.Reddit(client_id="my client id",
+                         client_secret="my client secret",
+                         user_agent="my user agent",
+                         username="sername",
+                         password="password",
+                        )
     print("Logged in!")
 
     return reddit
