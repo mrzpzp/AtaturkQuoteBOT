@@ -6,9 +6,7 @@ import photosl
 import time
 import os
 import random
-from keep_alive import keep_alive
 
-keep_alive()
 
 def login():
     print("Logging in...")
