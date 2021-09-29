@@ -107,6 +107,5 @@ while True:
   except Exception as e:
     print(str(e) + " ,sleeping 120 seconds...")
     time.sleep(120)
-    main(reddit, replied_to)
 
 # "Bilim, gerçeği bilmektir." -M.Kemal Atatürk
