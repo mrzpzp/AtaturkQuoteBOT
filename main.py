@@ -71,7 +71,9 @@ def main(reddit, replied_to):
   for mention in reddit.inbox.mentions(limit = 3):
     if  mention.id not in replied_to and mention.author != reddit.user.me():
       time.sleep(1)
-      reply(mention)
+      if mention.new:
+        reply(mention)
+        mention.mark_read()
       
   for submission in subreddit.new(limit=10):
     submission_lower = submission.title.lower()
