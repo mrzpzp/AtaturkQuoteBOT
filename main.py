@@ -1,4 +1,4 @@
-# AtaturkQuoteBot v3.9 by MrZpzp
+# AtaturkQuoteBot v4.0 by MrZpzp
 
 import praw
 import quotesl
