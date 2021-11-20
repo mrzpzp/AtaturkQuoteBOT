@@ -3,6 +3,7 @@
 import praw
 import quotesl
 import photosl
+import infol
 import time
 import random
 
